@@ -14,8 +14,8 @@ func ToIntArray(s string, sep string) []int {
 	str := strings.Split(s, sep)
 	res := make([]int, len(str))
 
-	for i, v := range str {
-		res[i] = ToInt(v)
+	for i := range str {
+		res[i] = ToInt(str[i])
 	}
 	return res
 }
@@ -25,4 +25,8 @@ func Abs(i int) int {
 		return -i
 	}
 	return i
+}
+
+func IsEven(i int) bool {
+	return i == i/2*2
 }
