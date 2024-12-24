@@ -20,6 +20,16 @@ func ToIntArray(s string, sep string) []int {
 	return res
 }
 
+func StringToIntArray(s []string) []int {
+	var res []int
+
+	for _, v := range s {
+		res = append(res, ToInt(v))
+	}
+
+	return res
+}
+
 func Abs(i int) int {
 	if i < 0 {
 		return -i
