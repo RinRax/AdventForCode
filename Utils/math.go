@@ -40,3 +40,13 @@ func Abs(i int) int {
 func IsEven(i int) bool {
 	return i == i/2*2
 }
+
+func ToString(ints []int) string {
+	var res string
+
+	for _, v := range ints {
+		res += strconv.Itoa(v) + " "
+	}
+
+	return res
+}

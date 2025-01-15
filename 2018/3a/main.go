@@ -15,55 +15,54 @@ type point struct {
 }
 
 type claim struct {
-	start, size point
+	start, len point
 }
 
 func solution(data string) int {
 	var sum int
-	var fabric = map[point]int{}
 	var claims = convert(data)
+	var fabric = map[point]int{}
 
 	for _, claim := range claims {
-		claimFabric(fabric, claim)
+		for x := range claim.len.x {
+			for y := range claim.len.y {
+				fabric[point{claim.start.x + x, claim.start.y + y}]++
+			}
+		}
 	}
 
 	for _, v := range fabric {
 		if v > 1 {
 			sum++
-			fmt.Println(v)
 		}
 	}
 
 	return sum
 }
 
-func claimFabric(fabric map[point]int, claim claim) {
-	for x := range claim.size.x {
-		for y := range claim.size.y {
-			fabric[point{claim.start.x + x, claim.start.y + y}]++
-		}
-	}
-}
+func convert(data string) []claim {
+	var claims []claim
 
-func convert(data string) (res []claim) {
-	var claim claim
+	for _, rawLine := range strings.Split(data, "\n") {
 
-	for _, line := range strings.Split(data, "\n") {
-		lineSplit := strings.Split(line, " ")
+		line := strings.Split(rawLine, " ")
+		start := utils.StringToIntArray(strings.Split(strings.ReplaceAll(line[2], ":", ""), ","))
+		len := utils.StringToIntArray(strings.Split(line[3], "x"))
 
-		start := strings.Split(strings.ReplaceAll(lineSplit[2], ":", ""), ",")
-		size := strings.Split(lineSplit[3], "x")
-
-		claim.start.x, claim.start.y = utils.ToInt(start[0]), utils.ToInt(start[1])
-		claim.size.x, claim.size.y = utils.ToInt(size[0]), utils.ToInt(size[1])
-
-		res = append(res, claim)
+		claims = append(claims, claim{
+			start: point{
+				x: start[0],
+				y: start[1],
+			},
+			len: point{
+				x: len[0],
+				y: len[1],
+			},
+		})
 	}
 
-	return res
+	return claims
 }
-
-//jaydoesntwanttogivemeagoodnamesoihavetotypethiseverysingletimethankyouforwastingmytime
 
 const in = `#1 @ 45,64: 22x22
 #2 @ 291,191: 12x19

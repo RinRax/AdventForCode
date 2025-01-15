@@ -1,19 +1,21 @@
 package main
 
 import (
+	"strconv"
 	"testing"
 )
 
 func Test(t *testing.T) {
 	for _, test := range []struct {
-		in   string
+		in   int
 		want int
 	}{
-		{in: `#1 @ 1,3: 4x4
-#2 @ 3,1: 4x4
-#3 @ 5,5: 2x2`, want: 4},
+		{in: 1, want: 0},
+		{in: 12, want: 3},
+		{in: 23, want: 2},
+		{in: 1024, want: 31},
 	} {
-		t.Run(test.in, func(t *testing.T) {
+		t.Run(strconv.Itoa(test.in), func(t *testing.T) {
 			t.Parallel()
 
 			if got := solution(test.in); got != test.want {
