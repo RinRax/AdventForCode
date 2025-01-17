@@ -31,9 +31,20 @@ func solution(data string) int {
 		}
 	}
 
-	for _, v := range fabric {
-		if v > 1 {
-			sum++
+LOOP:
+	for i, claim := range claims {
+		var overlap bool
+
+		for x := range claim.len.x {
+			for y := range claim.len.y {
+				if fabric[point{claim.start.x + x, claim.start.y + y}] != 1 {
+					continue LOOP
+				}
+			}
+		}
+
+		if !overlap {
+			return i + 1
 		}
 	}
 

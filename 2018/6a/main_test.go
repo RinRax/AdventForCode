@@ -9,9 +9,12 @@ func Test(t *testing.T) {
 		in   string
 		want int
 	}{
-		{in: `#1 @ 1,3: 4x4
-#2 @ 3,1: 4x4
-#3 @ 5,5: 2x2`, want: 3},
+		{in: `1, 1
+1, 6
+8, 3
+3, 4
+5, 5
+8, 9`, want: 17},
 	} {
 		t.Run(test.in, func(t *testing.T) {
 			t.Parallel()
